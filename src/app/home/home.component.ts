@@ -421,33 +421,33 @@ export class HomeComponent implements OnInit {
       }
     ];
 
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "country";
-    categoryAxis.renderer.minGridDistance = 40;
-    categoryAxis.fontSize = 11;
-    categoryAxis.renderer.labels.template.dy = 5;
+    // let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    // categoryAxis.renderer.grid.template.location = 0;
+    // categoryAxis.dataFields.category = "country";
+    // categoryAxis.renderer.minGridDistance = 40;
+    // categoryAxis.fontSize = 11;
+    // categoryAxis.renderer.labels.template.dy = 5;
 
-    let image = new am4core.Image();
-    image.horizontalCenter = "middle";
-    image.width = 20;
-    image.height = 20;
-    image.verticalCenter = "middle";
-    image.adapter.add("href", (href, target) => {
-      let category = target.dataItem.category;
-      if (category) {
-        return (
-          "https://www.amcharts.com/wp-content/uploads/flags/" +
-          category
-            .split(" ")
-            .join("-")
-            .toLowerCase() +
-          ".svg"
-        );
-      }
-      return href;
-    });
-    categoryAxis.dataItems.template.bullet = image;
+    // let image = new am4core.Image();
+    // image.horizontalCenter = "middle";
+    // image.width = 20;
+    // image.height = 20;
+    // image.verticalCenter = "middle";
+    // image.adapter.add("href", (href, target) => {
+    //   let category = target.dataItem.category;
+    //   if (category) {
+    //     return (
+    //       "https://www.amcharts.com/wp-content/uploads/flags/" +
+    //       category
+    //         .split(" ")
+    //         .join("-")
+    //         .toLowerCase() +
+    //       ".svg"
+    //     );
+    //   }
+    //   return href;
+    // });
+    // categoryAxis.dataItems.template.bullet = image;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
