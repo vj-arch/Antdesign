@@ -82,11 +82,17 @@
   <div nz-row>
     <div nz-col nzSpan="15" class="chartsdiv-left">
       <div>
-        <div id="chartdiv" style="width: 100%; height: 500px"></div>
+        <div id="chartdiv2" style="width: 100%; height:800px;"></div>
       </div>
+
       <div>
         <div id="chartdivpie" style="width: 100%; height: 300px"></div>
       </div>
+      <div>
+        <button (click)="showChartwithImage()">ShowChartwithImage</button>
+        <div id="chartdiv3" style="width: 100%; height: 300px"></div>
+      </div>
+
       <p>convert csv file to json objects</p>
 
       <label nz-button for="fileInput">
@@ -124,13 +130,12 @@
         <br />
         <br />
         <p>Select The Date Range</p>
-        <nz-range-picker [nzSize]="size"></nz-range-picker>
+        <nz-range-picker></nz-range-picker>
         <br />
         <br />
         <p>Filter by Country</p>
         <nz-select
           [(ngModel)]="multipleValue"
-          [nzSize]="size"
           nzMode="multiple"
           nzPlaceHolder="Please select"
           (ngModelChange)="selectedData('country')"

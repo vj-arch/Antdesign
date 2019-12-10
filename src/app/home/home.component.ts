@@ -11,18 +11,17 @@ import { Data } from "../data.model";
 })
 export class HomeComponent implements OnInit {
   //Donut  Chart
-  text1: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
-    
-    text2: string;
+
   Jdata: Data[] = [];
-  //select section
   listOfOption: Array<{ label: string; value: string }> = [];
   multipleValue = [201.9, 301.9, 201.1, 165.8, 139.9, 128.3];
-  //this.selectedData(multipleValue);
   allData: any;
   rangeValue = [100, 400];
   fileReaded: any;
+
   constructor(private zone: NgZone) {}
+
+  //select section
   selectedData(filter) {
     let tempData: any = [];
 
@@ -54,6 +53,7 @@ export class HomeComponent implements OnInit {
 
     console.log(tempData);
     if (tempData != []) {
+      // Chart section after the applying filters
       this.zone.runOutsideAngular(() => {
         //Pie Charts
         let chart2 = am4core.create("chartdivpie", am4charts.PieChart);
@@ -74,53 +74,142 @@ export class HomeComponent implements OnInit {
         //XY Charts
       });
     }
-  }
+  } //SelectedData section ends
 
   isCollapsed = false;
   private chart: am4charts.XYChart;
 
+  // XY Chart with Zoom effect
   ngAfterViewInit() {
     this.zone.runOutsideAngular(() => {
-      //Pie Charts
+      // Create chart instance
+      let chart = am4core.create("chartdiv2", am4charts.XYChart);
 
-      let chart = am4core.create("chartdiv", am4charts.XYChart);
+      // Add data
+      chart.data = [
+        {
+          year: 2000,
+          income: 23.5,
+          expenses: 18.1,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2MTc1YzAgNyA1IDEyIDEyIDEyaDE3NWM2IDAgMTEtNSAxMS0xMlYxN2MwLTYtNS0xMS0xMS0xMUgxOHoiIGZpbGw9IiMwMDI0N2QiLz48cGF0aCBkPSJNNiAzOXYxN2w4NCA0OS04NCA0OHYxOGw5OS01OCA5OSA1OHYtMThsLTg0LTQ4IDg0LTQ5VjM5bC05OSA1N0w2IDM5eiIgZmlsbD0iI2NmMTQyYiIgcGFpbnQtb3JkZXI9Im1hcmtlcnMgZmlsbCBzdHJva2UiLz48cGF0aCBkPSJNODggNnY4Mkg2djM0aDgydjgyaDM0di04Mmg4MlY4OGgtODJWNkg4OHoiIGZpbGw9IiNjZjE0MmIiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PHBhdGggZD0iTTg1IDZ2NzVMNiAzNXY4bDcyIDQySDYyTDYgNTN2N2w0MyAyNUg2djZoODZWNnptMzQgMHY4NWg4NXYtNmgtNDJsNDItMjV2LTdsLTU1IDMyaC0xN2w3Mi00MnYtOGwtNzggNDZWNnpNOTIgMTE5SDZ2Nmg0M0w2IDE0OXY4bDU2LTMyaDE2TDYgMTY3djdsNzktNDV2NzVoN3YtNzl6bTI3IDB2ODVoN3YtNzVsNzggNDV2LTdsLTcyLTQyaDE3bDU1IDMydi04bC00Mi0yNGg0MnYtNmgtODV6IiBzdHlsZT0ibGluZS1oZWlnaHQ6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9ybWFsO2ZvbnQtdmFyaWFudC1wb3NpdGlvbjpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1udW1lcmljOm5vcm1hbDtmb250LXZhcmlhbnQtYWx0ZXJuYXRlczpub3JtYWw7Zm9udC1mZWF0dXJlLXNldHRpbmdzOm5vcm1hbDt0ZXh0LWluZGVudDowO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWxpbmU6bm9uZTt0ZXh0LWRlY29yYXRpb24tc3R5bGU6c29saWQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiMwMDA7dGV4dC10cmFuc2Zvcm06bm9uZTt0ZXh0LW9yaWVudGF0aW9uOm1peGVkO3NoYXBlLXBhZGRpbmc6MDtpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiIGNvbG9yPSIjMDAwIiBmb250LXdlaWdodD0iNDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgd2hpdGUtc3BhY2U9Im5vcm1hbCIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNmZmYiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PC9zdmc+"
+        },
+        {
+          year: 2001,
+          income: 26.2,
+          expenses: 22.8,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2ODhoMTk4VjE3YzAtNi01LTExLTExLTExSDE4eiIgZmlsbD0iI2RmMTEyYiIvPjxwYXRoIGQ9Ik02IDEwNXY4N2MwIDcgNSAxMiAxMiAxMmgxNzVjNiAwIDExLTUgMTEtMTJ2LTg3SDZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
+        },
+        {
+          year: 2002,
+          income: 30.1,
+          expenses: 23.9,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2NTVoMTk4VjE3YzAtNi01LTExLTExLTExaC04N3pNNiAxMzh2NTRjMCA3IDUgMTIgMTIgMTJoMTc1YzYgMCAxMS01IDExLTEydi01NHoiIGZpbGw9IiNlZDI5MzciLz48cGF0aCBkPSJNNiA3MnY2NmgxOThWNzJINnoiIGZpbGw9IiNmOWY5ZjkiLz48L3N2Zz4="
+        },
+        {
+          year: 2003,
+          income: 29.5,
+          expenses: 25.1,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2ODhoMTk4VjE3YzAtNi01LTExLTExLTExSDE4eiIgZmlsbD0iI2RmMTEyYiIvPjxwYXRoIGQ9Ik02IDEwNXY4N2MwIDcgNSAxMiAxMiAxMmgxNzVjNiAwIDExLTUgMTEtMTJ2LTg3SDZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
+        },
 
-      // chart.paddingRight = 20;
+        {
+          year: 2004,
+          income: 23.5,
+          expenses: 18.1,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2MTc1YzAgNyA1IDEyIDEyIDEyaDE3NWM2IDAgMTEtNSAxMS0xMlYxN2MwLTYtNS0xMS0xMS0xMUgxOHoiIGZpbGw9IiMwMDI0N2QiLz48cGF0aCBkPSJNNiAzOXYxN2w4NCA0OS04NCA0OHYxOGw5OS01OCA5OSA1OHYtMThsLTg0LTQ4IDg0LTQ5VjM5bC05OSA1N0w2IDM5eiIgZmlsbD0iI2NmMTQyYiIgcGFpbnQtb3JkZXI9Im1hcmtlcnMgZmlsbCBzdHJva2UiLz48cGF0aCBkPSJNODggNnY4Mkg2djM0aDgydjgyaDM0di04Mmg4MlY4OGgtODJWNkg4OHoiIGZpbGw9IiNjZjE0MmIiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PHBhdGggZD0iTTg1IDZ2NzVMNiAzNXY4bDcyIDQySDYyTDYgNTN2N2w0MyAyNUg2djZoODZWNnptMzQgMHY4NWg4NXYtNmgtNDJsNDItMjV2LTdsLTU1IDMyaC0xN2w3Mi00MnYtOGwtNzggNDZWNnpNOTIgMTE5SDZ2Nmg0M0w2IDE0OXY4bDU2LTMyaDE2TDYgMTY3djdsNzktNDV2NzVoN3YtNzl6bTI3IDB2ODVoN3YtNzVsNzggNDV2LTdsLTcyLTQyaDE3bDU1IDMydi04bC00Mi0yNGg0MnYtNmgtODV6IiBzdHlsZT0ibGluZS1oZWlnaHQ6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9ybWFsO2ZvbnQtdmFyaWFudC1wb3NpdGlvbjpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1udW1lcmljOm5vcm1hbDtmb250LXZhcmlhbnQtYWx0ZXJuYXRlczpub3JtYWw7Zm9udC1mZWF0dXJlLXNldHRpbmdzOm5vcm1hbDt0ZXh0LWluZGVudDowO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWxpbmU6bm9uZTt0ZXh0LWRlY29yYXRpb24tc3R5bGU6c29saWQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiMwMDA7dGV4dC10cmFuc2Zvcm06bm9uZTt0ZXh0LW9yaWVudGF0aW9uOm1peGVkO3NoYXBlLXBhZGRpbmc6MDtpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiIGNvbG9yPSIjMDAwIiBmb250LXdlaWdodD0iNDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgd2hpdGUtc3BhY2U9Im5vcm1hbCIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNmZmYiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PC9zdmc+"
+        },
+        {
+          year: 2005,
+          income: 26.2,
+          expenses: 22.8,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2ODhoMTk4VjE3YzAtNi01LTExLTExLTExSDE4eiIgZmlsbD0iI2RmMTEyYiIvPjxwYXRoIGQ9Ik02IDEwNXY4N2MwIDcgNSAxMiAxMiAxMmgxNzVjNiAwIDExLTUgMTEtMTJ2LTg3SDZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
+        },
+        {
+          year: 2006,
+          income: 24.6,
+          expenses: 25,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2MTc1YzAgNyA1IDEyIDEyIDEyaDE3NWM2IDAgMTEtNSAxMS0xMlYxN2MwLTYtNS0xMS0xMS0xMUgxOHoiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIxMDUiIGN5PSIxMDUiIHI9IjM2IiBmaWxsPSIjYmMwMDJkIiBwYWludC1vcmRlcj0ibWFya2VycyBmaWxsIHN0cm9rZSIvPjwvc3ZnPg=="
+        },
 
-      let data = [];
-      let visits = 10;
-      for (let i = 1; i < 366; i++) {
-        visits += Math.round(
-          (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-        );
-        data.push({
-          date: new Date(2018, 0, i),
-          name: "name" + i,
-          value: visits
-        });
+        {
+          year: 2007,
+          income: 23.5,
+          expenses: 18.1,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2MTc1YzAgNyA1IDEyIDEyIDEyaDE3NWM2IDAgMTEtNSAxMS0xMlYxN2MwLTYtNS0xMS0xMS0xMUgxOHoiIGZpbGw9IiMwMDI0N2QiLz48cGF0aCBkPSJNNiAzOXYxN2w4NCA0OS04NCA0OHYxOGw5OS01OCA5OSA1OHYtMThsLTg0LTQ4IDg0LTQ5VjM5bC05OSA1N0w2IDM5eiIgZmlsbD0iI2NmMTQyYiIgcGFpbnQtb3JkZXI9Im1hcmtlcnMgZmlsbCBzdHJva2UiLz48cGF0aCBkPSJNODggNnY4Mkg2djM0aDgydjgyaDM0di04Mmg4MlY4OGgtODJWNkg4OHoiIGZpbGw9IiNjZjE0MmIiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PHBhdGggZD0iTTg1IDZ2NzVMNiAzNXY4bDcyIDQySDYyTDYgNTN2N2w0MyAyNUg2djZoODZWNnptMzQgMHY4NWg4NXYtNmgtNDJsNDItMjV2LTdsLTU1IDMyaC0xN2w3Mi00MnYtOGwtNzggNDZWNnpNOTIgMTE5SDZ2Nmg0M0w2IDE0OXY4bDU2LTMyaDE2TDYgMTY3djdsNzktNDV2NzVoN3YtNzl6bTI3IDB2ODVoN3YtNzVsNzggNDV2LTdsLTcyLTQyaDE3bDU1IDMydi04bC00Mi0yNGg0MnYtNmgtODV6IiBzdHlsZT0ibGluZS1oZWlnaHQ6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9ybWFsO2ZvbnQtdmFyaWFudC1wb3NpdGlvbjpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1udW1lcmljOm5vcm1hbDtmb250LXZhcmlhbnQtYWx0ZXJuYXRlczpub3JtYWw7Zm9udC1mZWF0dXJlLXNldHRpbmdzOm5vcm1hbDt0ZXh0LWluZGVudDowO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWxpbmU6bm9uZTt0ZXh0LWRlY29yYXRpb24tc3R5bGU6c29saWQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiMwMDA7dGV4dC10cmFuc2Zvcm06bm9uZTt0ZXh0LW9yaWVudGF0aW9uOm1peGVkO3NoYXBlLXBhZGRpbmc6MDtpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiIGNvbG9yPSIjMDAwIiBmb250LXdlaWdodD0iNDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgd2hpdGUtc3BhY2U9Im5vcm1hbCIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNmZmYiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PC9zdmc+"
+        },
+        {
+          year: 2008,
+          income: 26.2,
+          expenses: 22.8,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2ODhoMTk4VjE3YzAtNi01LTExLTExLTExSDE4eiIgZmlsbD0iI2RmMTEyYiIvPjxwYXRoIGQ9Ik02IDEwNXY4N2MwIDcgNSAxMiAxMiAxMmgxNzVjNiAwIDExLTUgMTEtMTJ2LTg3SDZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
+        },
+
+        {
+          year: 2009,
+          income: 23.5,
+          expenses: 18.1,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2MTc1YzAgNyA1IDEyIDEyIDEyaDE3NWM2IDAgMTEtNSAxMS0xMlYxN2MwLTYtNS0xMS0xMS0xMUgxOHoiIGZpbGw9IiMwMDI0N2QiLz48cGF0aCBkPSJNNiAzOXYxN2w4NCA0OS04NCA0OHYxOGw5OS01OCA5OSA1OHYtMThsLTg0LTQ4IDg0LTQ5VjM5bC05OSA1N0w2IDM5eiIgZmlsbD0iI2NmMTQyYiIgcGFpbnQtb3JkZXI9Im1hcmtlcnMgZmlsbCBzdHJva2UiLz48cGF0aCBkPSJNODggNnY4Mkg2djM0aDgydjgyaDM0di04Mmg4MlY4OGgtODJWNkg4OHoiIGZpbGw9IiNjZjE0MmIiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PHBhdGggZD0iTTg1IDZ2NzVMNiAzNXY4bDcyIDQySDYyTDYgNTN2N2w0MyAyNUg2djZoODZWNnptMzQgMHY4NWg4NXYtNmgtNDJsNDItMjV2LTdsLTU1IDMyaC0xN2w3Mi00MnYtOGwtNzggNDZWNnpNOTIgMTE5SDZ2Nmg0M0w2IDE0OXY4bDU2LTMyaDE2TDYgMTY3djdsNzktNDV2NzVoN3YtNzl6bTI3IDB2ODVoN3YtNzVsNzggNDV2LTdsLTcyLTQyaDE3bDU1IDMydi04bC00Mi0yNGg0MnYtNmgtODV6IiBzdHlsZT0ibGluZS1oZWlnaHQ6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9ybWFsO2ZvbnQtdmFyaWFudC1wb3NpdGlvbjpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1udW1lcmljOm5vcm1hbDtmb250LXZhcmlhbnQtYWx0ZXJuYXRlczpub3JtYWw7Zm9udC1mZWF0dXJlLXNldHRpbmdzOm5vcm1hbDt0ZXh0LWluZGVudDowO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWxpbmU6bm9uZTt0ZXh0LWRlY29yYXRpb24tc3R5bGU6c29saWQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiMwMDA7dGV4dC10cmFuc2Zvcm06bm9uZTt0ZXh0LW9yaWVudGF0aW9uOm1peGVkO3NoYXBlLXBhZGRpbmc6MDtpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiIGNvbG9yPSIjMDAwIiBmb250LXdlaWdodD0iNDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgd2hpdGUtc3BhY2U9Im5vcm1hbCIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNmZmYiIHBhaW50LW9yZGVyPSJtYXJrZXJzIGZpbGwgc3Ryb2tlIi8+PC9zdmc+"
+        },
+        {
+          year: 2010,
+          income: 26.2,
+          expenses: 22.8,
+          bullet:
+            "data:image/svg+xml;charset=utf-8;base64,PHN2ZyBoZWlnaHQ9Ijc5NCIgdmVyc2lvbj0iMSIgdmlld0JveD0iMCAwIDIxMCAyMTAiIHdpZHRoPSI3OTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE4IDZDMTEgNiA2IDExIDYgMTd2ODhoMTk4VjE3YzAtNi01LTExLTExLTExSDE4eiIgZmlsbD0iI2RmMTEyYiIvPjxwYXRoIGQ9Ik02IDEwNXY4N2MwIDcgNSAxMiAxMiAxMmgxNzVjNiAwIDExLTUgMTEtMTJ2LTg3SDZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
+        }
+      ];
+
+      // Create axes
+      let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.dataFields.category = "year";
+      categoryAxis.numberFormatter.numberFormat = "#";
+      categoryAxis.renderer.inversed = true;
+      categoryAxis.renderer.grid.template.location = 0;
+      categoryAxis.renderer.cellStartLocation = 0.1;
+      categoryAxis.renderer.cellEndLocation = 0.9;
+
+      let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxis.renderer.opposite = true;
+
+      // Create series
+      function createSeries(field, name) {
+        let series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueX = field;
+        series.dataFields.categoryY = "year";
+        series.name = name;
+        series.columns.template.tooltipText = "{name}: [bold]{valueX}[/]";
+        series.columns.template.height = am4core.percent(100);
+        series.sequencedInterpolation = true;
+
+        let valueLabel = series.bullets.push(new am4charts.LabelBullet());
+
+        valueLabel.label.horizontalCenter = "left";
+        valueLabel.label.dx = 10;
+        valueLabel.label.hideOversized = false;
+        valueLabel.label.truncate = false;
+
+        let bullet = series.bullets.push(new am4charts.LabelBullet());
+
+        let image = bullet.createChild(am4core.Image);
+        image.propertyFields.href = "bullet";
+        image.width = 30;
+        image.height = 30;
+        image.horizontalCenter = "middle";
+        image.verticalCenter = "middle";
       }
 
-      chart.data = data;
-
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.renderer.grid.template.location = 0;
-
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      valueAxis.tooltip.disabled = true;
-      valueAxis.renderer.minWidth = 35;
-
-      let series = chart.series.push(new am4charts.LineSeries());
-      series.dataFields.dateX = "date";
-      series.dataFields.valueY = "value";
-
-      series.tooltipText = "{valueY.value}";
-      chart.cursor = new am4charts.XYCursor();
-
-      let scrollbarX = new am4charts.XYChartScrollbar();
-      scrollbarX.series.push(series);
-      chart.scrollbarX = scrollbarX;
-
-      this.chart = chart;
+      createSeries("income", "Income");
+      createSeries("expenses", "Expenses");
     });
   }
 
@@ -178,7 +267,7 @@ export class HomeComponent implements OnInit {
         });
       }
       console.log(chartdata);
-
+      // Chart after loading the CSV file
       am4core.useTheme(am4themes_animated);
 
       // Create chart instance
@@ -233,13 +322,151 @@ export class HomeComponent implements OnInit {
       let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter());
       hoverShadow.opacity = 0.7;
       hoverShadow.blur = 5;
+      //Category as image
 
+      // let categoryAxis = pieSeries.slices.push(
+      //   new am4charts.PieSeriesDataItem()
+      // );
+      // categoryAxis.renderer.grid.template.location = 0;
+      // categoryAxis.dataFields.category = "Name";
+      // categoryAxis.renderer.minGridDistance = 40;
+      // categoryAxis.fontSize = 11;
+      // categoryAxis.renderer.labels.template.dy = 5;
+
+      // let image = new am4core.Image();
+      // image.horizontalCenter = "middle";
+      // image.width = 20;
+      // image.height = 20;
+      // image.verticalCenter = "middle";
+      // image.adapter.add("href", (href, target) => {
+      //   let category = target.dataItem.category;
+      //   if (category) {
+      //     return (
+      //       "https://www.amcharts.com/wp-content/uploads/flags/" +
+      //       category
+      //         .split(" ")
+      //         .join("-")
+      //         .toLowerCase() +
+      //       ".svg"
+      //     );
+      //   }
+      //   return href;
+      // });
+      // categoryAxis.dataItems.template.bullet = image;
       // Add a legend
       chart.legend = new am4charts.Legend();
 
       chart.data = chartdata;
     };
   }
+
+  //Chart with Images
+  showChartwithImage() {
+    /* Chart code */
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    let chart = am4core.create("chartdiv3", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+    chart.data = [
+      {
+        country: "United States",
+        visits: 725
+      },
+      {
+        country: "United Kingdom",
+        visits: 625
+      },
+      {
+        country: "China",
+        visits: 602
+      },
+      {
+        country: "Japan",
+        visits: 509
+      },
+      {
+        country: "Germany",
+        visits: 322
+      },
+      {
+        country: "France",
+        visits: 214
+      },
+      {
+        country: "India",
+        visits: 204
+      },
+      {
+        country: "Spain",
+        visits: 198
+      },
+      {
+        country: "Netherlands",
+        visits: 165
+      },
+      {
+        country: "Russia",
+        visits: 130
+      },
+      {
+        country: "South Korea",
+        visits: 93
+      },
+      {
+        country: "Canada",
+        visits: 41
+      }
+    ];
+
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "country";
+    categoryAxis.renderer.minGridDistance = 40;
+    categoryAxis.fontSize = 11;
+    categoryAxis.renderer.labels.template.dy = 5;
+
+    let image = new am4core.Image();
+    image.horizontalCenter = "middle";
+    image.width = 20;
+    image.height = 20;
+    image.verticalCenter = "middle";
+    image.adapter.add("href", (href, target) => {
+      let category = target.dataItem.category;
+      if (category) {
+        return (
+          "https://www.amcharts.com/wp-content/uploads/flags/" +
+          category
+            .split(" ")
+            .join("-")
+            .toLowerCase() +
+          ".svg"
+        );
+      }
+      return href;
+    });
+    categoryAxis.dataItems.template.bullet = image;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.renderer.minGridDistance = 30;
+    valueAxis.renderer.baseGrid.disabled = true;
+
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "visits";
+    series.columns.template.tooltipText = "{valueY.value}";
+    series.columns.template.tooltipY = 0;
+    series.columns.template.strokeOpacity = 0;
+
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function(fill, target) {
+      return chart.colors.getIndex(target.dataItem.index);
+    });
+  } // Chart with Images Ends Here
+
   ngOnInit() {
     const children: Array<{ label: string; value: any }> = [
       {
@@ -279,4 +506,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  // Class ends here
 }

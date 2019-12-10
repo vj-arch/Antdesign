@@ -13,7 +13,7 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  box-shadow: 1px 0 8px rgba(124, 185, 243, 0.35);
 }
 
 .header-trigger {
@@ -25,7 +25,7 @@
 }
 
 .trigger:hover {
-  color: #1890ff;
+  color: #072d52;
 }
 
 .sidebar-logo {
@@ -34,7 +34,7 @@
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: #001529;
+  background: #dae1e7;
   transition: all 0.3s;
 }
 
@@ -48,7 +48,7 @@
 .sidebar-logo h1 {
   display: inline-block;
   margin: 0 0 0 20px;
-  color: #fff;
+  color: #002140;
   font-weight: 600;
   font-size: 14px;
   font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
@@ -66,7 +66,7 @@ nz-header {
   height: 64px;
   padding: 0;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  box-shadow: 0 1px 4px rgba(108, 155, 250, 0.08);
 }
 
 nz-content {
@@ -138,4 +138,10 @@ nz-select {
   overflow: hidden;
   position: absolute;
   z-index: -1;
+}
+
+.ant-menu-dark .ant-menu-item,
+.ant-menu-dark .ant-menu-item-group-title,
+.ant-menu-dark .ant-menu-item > a {
+  color: #072d52;
 }
